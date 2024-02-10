@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.simpl_cct">
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <application
+        android:allowBackup="true"
+        android:label="${app_name}"
+        android:usesCleartextTraffic="true"
+        android:supportsRtl="true">
+
+        <activity
+            android:name="com.example.simpl_cct.SplashScreen"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!--Set launchMode="singleTop" if want to handle the redirection in the current activity -->
+        <activity android:name="com.example.simpl_cct.MainActivity" android:exported="true" android:launchMode="singleTop">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <!--Set 'deeplink_host=simplpay' to test the redirection callback in the current activity itself i.e MainActivity -->
+                <data android:scheme="${deeplink_host}" />
+            </intent-filter>
+        </activity>
+
+        <!--This activity will be called when user redirects from the webpage -->
+        <activity android:name="com.example.simpl_cct.SuccessScreen" android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="simplpay" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>

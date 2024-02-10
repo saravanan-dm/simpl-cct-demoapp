@@ -1,0 +1,59 @@
+plugins {
+    id 'com.android.application'
+    id 'kotlin-android'
+}
+
+android {
+    compileSdk 33
+
+    defaultConfig {
+        applicationId "com.example"
+        minSdk 21
+        targetSdk 33
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.debug
+        }
+    }
+    flavorDimensions "merchant"
+    productFlavors {
+        zomato {
+            dimension "merchant"
+            applicationIdSuffix ".simplcctdemo"
+            buildConfigField "String", "Authorization", "\"1c8f6a5d3be56a2cb0d14748774f5656\""
+            buildConfigField "String", "App", "\"simplcctdemo\""
+            manifestPlaceholders = [
+                    app_name    : "SimplCCTDemo",
+                    app_icon    : "@drawable/simpldemo",
+//                    deeplink_host: "simplpay",
+                    deeplink_host    : "simplcctdemo",
+            ]
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+    buildFeatures {
+        viewBinding true
+    }
+}
+
+dependencies {
+
+    implementation("com.squareup.okhttp3:okhttp:4.10.0")
+
+    implementation 'androidx.browser:browser:1.4.0'
+    implementation 'com.google.androidbrowserhelper:androidbrowserhelper:2.4.0'
+}
