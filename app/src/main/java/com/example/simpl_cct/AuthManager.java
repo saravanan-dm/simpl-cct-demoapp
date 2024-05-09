@@ -31,6 +31,8 @@ public class AuthManager {
     public void handleRedirect(Context context, String url) {
         if (isChromeCustomTabsSupported(context)) {
             CustomTabsIntent customTabsIntent = new CustomTabsIntent.Builder().build();
+            customTabsIntent.intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+            customTabsIntent.intent.setPackage(CHROME_PACKAGE);
             customTabsIntent.launchUrl(context, Uri.parse(url));
         } else {
             // @TODO: handle no custom tab support here. You may have to load the url in the normal Webview.
